@@ -119,9 +119,25 @@ class BurgerBuilder extends Component {
     //     });
     //   });
     //console.log(this.props);
+    //Mejor
+    // this.props.history.push({
+    //   pathname: "/checkout",
+    //   ingredients: this.state.ingredients
+    // });
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+      console.log(i);
+      queryParams.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    queryParams.push(`price=${this.state.totalPrice}`);
+    const queryString = queryParams.join("&");
     this.props.history.push({
       pathname: "/checkout",
-      ingredients: this.state.ingredients
+      search: `?${queryString}`
     });
   };
 

@@ -13,7 +13,7 @@ const burger = props => {
     })
     .reduce((arr, ele) => {
       return arr.concat(ele);
-    });
+    }, []);
 
   if (ingredientTransform.length === 0) {
     ingredientTransform = <p>Add ingredients please!</p>;
