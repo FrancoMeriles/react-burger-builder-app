@@ -15,7 +15,6 @@ import * as actionsType from "../../store/actions";
 
 class BurgerBuilder extends Component {
   state = {
-    purchasebled: false,
     purchasing: false,
     loading: false,
     error: false
@@ -40,7 +39,8 @@ class BurgerBuilder extends Component {
       })
       .reduce((sum, el) => sum + el, 0);
 
-    this.setState({ purchasebled: sum > 0 });
+    // this.setState({ purchasebled: sum > 0 });
+    return sum > 0;
   }
 
   // addIngredientHandler = type => {
@@ -82,6 +82,7 @@ class BurgerBuilder extends Component {
   };
 
   purchasedContinueHandler = () => {
+    // First Comment
     // this.setState({
     //   loading: true
     // });
@@ -119,21 +120,24 @@ class BurgerBuilder extends Component {
     //   pathname: "/checkout",
     //   ingredients: this.state.ingredients
     // });
-    const queryParams = [];
-    for (let i in this.state.ingredients) {
-      console.log(i);
-      queryParams.push(
-        encodeURIComponent(i) +
-          "=" +
-          encodeURIComponent(this.state.ingredients[i])
-      );
-    }
-    queryParams.push(`price=${this.props.price}`);
-    const queryString = queryParams.join("&");
-    this.props.history.push({
-      pathname: "/checkout",
-      search: `?${queryString}`
-    });
+
+    // Second Comment
+    // const queryParams = [];
+    // for (let i in this.state.ingredients) {
+    //   console.log(i);
+    //   queryParams.push(
+    //     encodeURIComponent(i) +
+    //       "=" +
+    //       encodeURIComponent(this.state.ingredients[i])
+    //   );
+    // }
+    // queryParams.push(`price=${this.props.price}`);
+    // const queryString = queryParams.join("&");
+    // this.props.history.push({
+    //   pathname: "/checkout",
+    //   search: `?${queryString}`
+    // });
+    this.props.history.push("/checkout");
   };
 
   render() {
@@ -158,7 +162,7 @@ class BurgerBuilder extends Component {
           <BuildControls
             ingredientAdded={this.props.onIngredientAdded}
             ingredientRemoved={this.props.onIngredientRemoved}
-            purchasebled={this.state.purchasebled}
+            purchasebled={this.updatePurchaseState(this.props.ings)}
             disabled={disableInfo}
             price={this.props.price}
             purchasing={this.state.purchasing}
