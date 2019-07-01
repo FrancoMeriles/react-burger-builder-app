@@ -21,19 +21,22 @@ export const authFail = error => {
   };
 };
 
-export const auth = (email, password) => {
+export const auth = (email, password, isSingup) => {
   return dispatch => {
     dispatch(authStart());
     console.log(email, password);
+    let url =
+      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBBRq-diTw6LU7fU-nMwuN4TZODjIxv2zM";
+    if (!isSingup) {
+      url =
+        "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBBRq-diTw6LU7fU-nMwuN4TZODjIxv2zM";
+    }
     axios
-      .post(
-        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBBRq-diTw6LU7fU-nMwuN4TZODjIxv2zM`,
-        {
-          email,
-          password,
-          returnSecureToken: true
-        }
-      )
+      .post(url, {
+        email,
+        password,
+        returnSecureToken: true
+      })
       .then(response => {
         console.log(response);
         dispatch(authSucces(response.data));
