@@ -7,10 +7,11 @@ export const authStart = () => {
   };
 };
 
-export const authSucces = data => {
+export const authSucces = (token, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    data: data
+    idToken: token,
+    userId: userId
   };
 };
 
@@ -39,7 +40,7 @@ export const auth = (email, password, isSingup) => {
       })
       .then(response => {
         console.log(response);
-        dispatch(authSucces(response.data));
+        dispatch(authSucces(response.data.idToken, response.data.localId));
       })
       .catch(error => {
         dispatch(authFail(error));
