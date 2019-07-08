@@ -32,7 +32,6 @@ export const logout = () => {
 };
 
 export const checkAuthTimeout = expirationTime => {
-  console.log(expirationTime);
   return dispatch => {
     setTimeout(() => {
       dispatch(logout());
@@ -43,7 +42,6 @@ export const checkAuthTimeout = expirationTime => {
 export const auth = (email, password, isSingup) => {
   return dispatch => {
     dispatch(authStart());
-    console.log(email, password);
     let url =
       "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBBRq-diTw6LU7fU-nMwuN4TZODjIxv2zM";
     if (!isSingup) {
@@ -57,7 +55,6 @@ export const auth = (email, password, isSingup) => {
         returnSecureToken: true
       })
       .then(response => {
-        console.log(response);
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
         );
